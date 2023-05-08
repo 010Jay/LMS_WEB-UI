@@ -1,3 +1,17 @@
-<h1>LMS_Web-UI is running</h1>
-<br>
-<app-book></app-book>
+<!-- Navigation -->
+    <div class = "navigation">
+        <nav>
+            <a routerLink = '/home' routerLinkActive = "active"> Home </a>
+            <br>
+            <a routerLink = '/book' > Book </a>
+        </nav>
+    </div>    
+
+    <!-- Main content -->
+<div class = "main">  
+    <h1>{{title}}</h1>
+    <br>
+
+    <!-- Router Outlet -->
+        <router-outlet></router-outlet>
+</div>      

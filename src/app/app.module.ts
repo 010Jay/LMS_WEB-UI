@@ -8,16 +8,20 @@ import { HttpExceptionHandler } from "./service-config/HttpExceptionHandler";
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookComponent
+    BookComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    AppRoutingModule
   ],
   providers: [BookServiceComponent, HttpExceptionHandler],
   bootstrap: [AppComponent]

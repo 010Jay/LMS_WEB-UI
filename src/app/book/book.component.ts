@@ -9,6 +9,7 @@ import { Book } from './book-object';
 })
 export class BookComponent implements OnInit {
 
+  title = 'Book Manager';
   bookList: Book[] = [];
   tableColumns = ['book_id', 'book_name', 'author', 'genre', 'price'];
 

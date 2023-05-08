@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Navigation */
+  /* Navigation position */
+  .navigation {
+      height: 100%;
+      width: 160px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      padding-top: 16px;
+    }
+
+    /* Navigation links */
+    .navigation a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+    }
+
+    /* Navigation mouse-over */
+  .navigation a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Main content */
+    .main {
+      margin-left: 160px; /* Same as the width of the sidenav */
+      padding: 0px 10px;
+    }
+  
+  /* Tables */
+    .mat-mdc-row .mat-mdc-cell {
+      border-bottom: 1px solid transparent;
+      border-top: 1px solid transparent;
+      cursor: pointer;
+    }
+    
+    .mat-mdc-row:hover .mat-mdc-cell {
+      border-color: currentColor;
+    }
