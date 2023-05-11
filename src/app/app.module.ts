@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { BookComponent } from './book/book.component';
 import { BookServiceComponent } from './book/service/book-service.component';
 import { HttpExceptionHandler } from "./service-config/HttpExceptionHandler";
+import { HomeComponent } from './home/home.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     HttpClientModule,
     MatTableModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatCheckboxModule
   ],
   providers: [BookServiceComponent, HttpExceptionHandler],
   bootstrap: [AppComponent]

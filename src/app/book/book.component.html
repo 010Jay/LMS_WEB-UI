@@ -1,6 +1,23 @@
 <h2><p>{{title}}</p></h2>
 
 <table mat-table [dataSource] = "bookList" class="mat-elevation-z8 table">
+    <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef> 
+                <mat-checkbox  [checked] = "selection.hasValue()" 
+                                (click)= "clearSelection()" >
+                </mat-checkbox>
+            </th>
+
+            <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            (click) = "onSelect(row)">
+            </mat-checkbox>
+            </td>
+        </ng-container>
+    
     <ng-container matColumnDef="book_id">
         <th mat-header-cell *matHeaderCellDef> Book ID </th>
         <td mat-cell *matCellDef="let book"> {{book.bookID}} </td>
@@ -29,4 +46,3 @@
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
 </table>
-
