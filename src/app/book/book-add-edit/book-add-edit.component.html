@@ -1,0 +1,36 @@
+<p>book-add-edit works!</p>
+
+<form>
+    <!-- Form data -->
+        <p>
+            <mat-form-field appearance = "fill"> 
+            <mat-label>Book Name</mat-label>
+            <input matInput type = text [formControl] = "bookName"> 
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance = "fill"> 
+            <mat-label>Author</mat-label>
+            <input matInput type = text [formControl] = "author">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance = "fill"> 
+            <mat-label>Genre</mat-label>
+            <input matInput type = text [formControl] = "genre"> 
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance = "fill"> 
+            <mat-label>Price</mat-label>
+            <input matInput type = text [formControl] = "price"> 
+            </mat-form-field>
+        </p>
+
+     <!-- Buttons    -->
+        <div style = "display: flex; flex: 2;">
+            <button mat-raised-button color = "primary" type = "submit">Submit</button>
+            <button mat-raised-button color = "primary" type = "reset">Reset</button>
+            <button mat-raised-button color = "primary" type = "button" (click) = "navigateBack()">Cancel</button>
+        </div>    
+</form>

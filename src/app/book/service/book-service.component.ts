@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { BookComponent } from '../book.component';
-import { Book } from '../book-object';
 import { HttpExceptionHandler } from "src/app/service-config/HttpExceptionHandler";
 
 @Injectable()

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BookServiceComponent } from './service/book-service.component';
-import { Book } from './book-object';
+import { Book } from './service/book-object';
 import {SelectionModel} from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book',
@@ -14,7 +15,10 @@ export class BookComponent implements OnInit {
   tableColumns = ['select', 'book_id', 'book_name', 'author', 'genre', 'price'];
   selection = new SelectionModel<Book>(false, []);
 
-  constructor(private service: BookServiceComponent){}
+  constructor(
+    private service: BookServiceComponent, 
+    private router: Router,
+    ) {}
   
   ngOnInit() {
     // Populate table when webpage loads
@@ -38,4 +42,12 @@ export class BookComponent implements OnInit {
       if(this,this.selection.selected.length > 0)
         this.selection.clear();
     }
+
+  //Display add-edit template
+    navigateToAddEdit =  () => {
+      this.router.navigateByUrl('book/add-edit');
+    }
+
 }
+
+

@@ -6,25 +6,37 @@ import { BookComponent } from './book/book.component';
 import { BookServiceComponent } from './book/service/book-service.component';
 import { HttpExceptionHandler } from "./service-config/HttpExceptionHandler";
 import { HomeComponent } from './home/home.component';
+import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field'; //Import for material form
+import { MatInputModule } from '@angular/material/input'; //Import for material form
+import {MatSelectModule} from '@angular/material/select'; //select type material 
 
 @NgModule({
   declarations: [
     AppComponent,
     BookComponent,
-    HomeComponent
+    HomeComponent,
+    BookAddEditComponent,
+    BookAddEditComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     MatTableModule,
     AppRoutingModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatSelectModule
   ],
   providers: [BookServiceComponent, HttpExceptionHandler],
   bootstrap: [AppComponent]

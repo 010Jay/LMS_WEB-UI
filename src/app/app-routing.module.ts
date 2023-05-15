@@ -1,13 +1,24 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { BookComponent } from './book/book.component';
 import { HomeComponent } from './home/home.component';
+import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.component';
 
 //Array to hold route definitions
   const routes: any[] = [
-    { path: 'book', component: BookComponent},
-    { path: 'home', component: HomeComponent},
-    { path: '', redirectTo: '/home', pathMatch: 'full'}  
+    { path: 'book', 
+      component: BookComponent,
+    },
+    { path: 'book/add-edit', 
+      component: BookAddEditComponent
+    },
+    { path: 'home', 
+      component: HomeComponent
+    },
+    { path: '', 
+      redirectTo: '/home', 
+      pathMatch: 'full'
+    }  
   ];
 
 @NgModule({
