@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { BookComponent } from './book/book.component';
@@ -13,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; //Import for material form
 import { MatInputModule } from '@angular/material/input'; //Import for material form
 import {MatSelectModule} from '@angular/material/select'; //select type material 
@@ -36,7 +37,9 @@ import {MatSelectModule} from '@angular/material/select'; //select type material
     ReactiveFormsModule,
     MatFormFieldModule, 
     MatInputModule, 
-    MatSelectModule
+    MatSelectModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [BookServiceComponent, HttpExceptionHandler],
   bootstrap: [AppComponent]

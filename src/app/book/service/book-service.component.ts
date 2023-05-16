@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { BookComponent } from '../book.component';
 import { HttpExceptionHandler } from "src/app/service-config/HttpExceptionHandler";
+import { Book } from './book-object';
 
 @Injectable()
 export class BookServiceComponent {
@@ -14,7 +15,7 @@ export class BookServiceComponent {
     this.results = [];
   }
   
-  BASE_URL: string = "http://localhost:8080/book";
+  BASE_URL: string = "http://192.168.18.8:8080/book"; // Change accordingly to where the clent is running from
 
   httpOptions = {
     httpHeaders: new HttpHeaders({
@@ -36,4 +37,10 @@ export class BookServiceComponent {
     );
   }
 
+  addbook(book: Book): Observable<any> {
+    return this.httpClient.post(this.BASE_URL + '/create', book,)
+    .pipe(
+      catchError(this.httpExc.handleError)
+    );
+  }
 }

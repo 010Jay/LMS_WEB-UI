@@ -9,7 +9,13 @@ import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.compone
     { path: 'book', 
       component: BookComponent,
     },
-    { path: 'book/add-edit', 
+    { path: 'book/add', 
+      component: BookAddEditComponent
+    },
+    { path: 'book/edit', 
+      component: BookAddEditComponent
+    },
+    { path: 'book/edit/:id', 
       component: BookAddEditComponent
     },
     { path: 'home', 

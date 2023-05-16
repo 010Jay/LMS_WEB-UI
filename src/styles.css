@@ -45,3 +45,20 @@
       border-color: currentColor;
       background-color: #E5E7E9;
     }
+
+    .add-edit-buttons {
+      text-align: right
+    }
+
+    .btn {
+      margin-right: 5px;
+    }
+
+    .form-buttons {
+      text-align: right;
+    }
+
+    .form-input mat-form-field {
+      height: 50px;
+      font-size: 12pt;
+    }

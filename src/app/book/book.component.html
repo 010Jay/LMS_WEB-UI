@@ -1,17 +1,15 @@
 <h2><p>{{title}}</p></h2>
 
 <div class = 'add-edit-buttons'>
-    <button mat-raised-button color = "primary" (click) = 'navigateToAddEdit()'> Add </button> 
+    <button class = "btn" mat-raised-button color = "primary" (click) = 'navigateToAddPage()'> Add </button> 
+    <button class = "btn" mat-raised-button color = "primary" [disabled] = "!toggleEditButton" 
+                    (click) = "navigateToEditPage()"> Edit </button>
 </div>
 
 <table mat-table [dataSource] = "bookList" class="mat-elevation-z8 table">
     <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef> 
-                <mat-checkbox  [checked] = "selection.hasValue()" 
-                                (click)= "clearSelection()" >
-                </mat-checkbox>
-            </th>
+            <th mat-header-cell *matHeaderCellDef> [ ] </th>
 
             <td mat-cell *matCellDef="let row">
             <mat-checkbox (click)="$event.stopPropagation()"
