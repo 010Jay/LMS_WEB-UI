@@ -14,7 +14,7 @@ export class BookComponent implements OnInit {
   bookList: Book[] = [];
   tableColumns = ['select', 'book_id', 'book_name', 'author', 'genre', 'price'];
   selection = new SelectionModel<Book>(false, []);
-  toggleEditButton!: boolean; 
+  toggleButton!: boolean; 
   bookID: number = -1;
 
   constructor(
@@ -24,19 +24,19 @@ export class BookComponent implements OnInit {
   
   ngOnInit() {
     // Populate table when webpage loads
-      this.toggleEditButton = false;
-      this.service.getAllBooks().subscribe((response: Book[]) => {
+      this.toggleButton = false;
+      this.service.getMany().subscribe((response: Book[]) => {
         this.bookList = response;
-      })
+      });
   }
 
 // Get id of the object/row selected in the table
   onSelect(row: any): void{
     if(this.selection.isSelected(row)) {
       this.bookID = row.bookID;
-      this.toggleEditButton = true;
+      this.toggleButton = true;
     } else {
-        this.toggleEditButton = false;
+        this.toggleButton = false;
         this.bookID = -1;
     }  
   }
@@ -49,13 +49,19 @@ export class BookComponent implements OnInit {
 
   //Display add template
     navigateToAddPage =  () => {
-      this.router.navigateByUrl('book/add');
+      this.router.navigateByUrl('/book/add');
     }
 
   //Display edit template
     navigateToEditPage =  () => {
       this.router.navigate(['/book/edit'], { queryParams: { id: this.bookID } });
     }  
+
+    delete(): void {
+      this.service.delete(this.bookID).subscribe((reponse: Book) => {
+        console.log(reponse);
+      });
+    }
 }
 
 

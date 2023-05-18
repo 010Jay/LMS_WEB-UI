@@ -33,18 +33,27 @@ export class BookAddEditComponent {
       } else {
           this.title = 'Edit Book';
           this.activatedroute.queryParams.subscribe(data => {
-            console.log(data);
-            // Get method goes here
+            let bookID: number = parseInt(data['id']);
+            this.service.get(bookID).subscribe(response => {
+              this.fillForm(response);
+            });
           });
       }
   }
 
-  addNewBook(): void {
+  save(): void {
     let book: Book = this.addBookForm.value;
-    this.service.addbook(book).subscribe((response: Book) => {
-      console.log(response);
-      // Display message to go here
-    });
+    if(this.router.url === '/book/add') {
+      this.service.post(book).subscribe((response: Book) => {
+        console.log(response);
+        // Display message to go here
+      });
+    } else {
+        this.service.put(book).subscribe((response: Book) => {
+          console.log(response);
+          // Display message to go here
+        });
+    }
     this.navigateBack();
   }
 
@@ -58,6 +67,17 @@ export class BookAddEditComponent {
         price: 0.00
       })
     }
+
+  // Fill form with data object to edit
+    fillForm(book: Book): void {
+      this.addBookForm.setValue({
+        bookID: book.bookID!,
+        bookName: book.bookName!,
+        author: book.author!,
+        genre: book.genre!,
+        price: book.price!
+      })
+    }  
 
   // Navigate back to book list page  
     navigateBack():void {

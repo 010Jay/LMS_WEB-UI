@@ -2,8 +2,10 @@
 
 <div class = 'add-edit-buttons'>
     <button class = "btn" mat-raised-button color = "primary" (click) = 'navigateToAddPage()'> Add </button> 
-    <button class = "btn" mat-raised-button color = "primary" [disabled] = "!toggleEditButton" 
+    <button class = "btn" mat-raised-button color = "primary" [disabled] = "!toggleButton" 
                     (click) = "navigateToEditPage()"> Edit </button>
+    <button class = "btn" mat-raised-button = "primary" [disabled] = "!toggleButton"
+                    (click) = 'delete()'> Delete </button>                
 </div>
 
 <table mat-table [dataSource] = "bookList" class="mat-elevation-z8 table">
