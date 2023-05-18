@@ -1,9 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BookServiceComponent } from './service/book-service.component';
 import { Book } from './service/book-object';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -16,10 +15,7 @@ export class BookComponent implements OnInit {
   tableColumns = ['select', 'book_id', 'book_name', 'author', 'genre', 'price'];
   selection = new SelectionModel<Book>(false, []);
   toggleEditButton!: boolean; 
-  // Data to be by add-edit component
-    bookID: number = -1;
-    // addEditPageTitle = new Subject<string>();
-    // subscriber$ = this.addEditPageTitle.asObservable();
+  bookID: number = -1;
 
   constructor(
     private service: BookServiceComponent, 
@@ -54,13 +50,11 @@ export class BookComponent implements OnInit {
   //Display add template
     navigateToAddPage =  () => {
       this.router.navigateByUrl('book/add');
-      //this.addEditPageTitle.next("Add Book");
     }
 
   //Display edit template
     navigateToEditPage =  () => {
       this.router.navigate(['/book/edit'], { queryParams: { id: this.bookID } });
-      //this.addEditPageTitle.next("Edit Book");
     }  
 }
 

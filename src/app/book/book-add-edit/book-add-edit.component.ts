@@ -1,10 +1,8 @@
-import { Component, Host } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookServiceComponent } from '../service/book-service.component';
 import { Book } from '../service/book-object';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BookComponent } from '../book.component';
-
 
 @Component({
   selector: 'app-book-add-edit',
@@ -26,25 +24,26 @@ export class BookAddEditComponent {
     private router: Router,
     private service: BookServiceComponent,
     private activatedroute: ActivatedRoute,
-    //@Host() private bookComp: BookComponent
   ) {}
 
   ngOnInit():void {
-    // this.bookComp.subscriber$.subscribe(data => {
-    //   this.title = data;
-    //   console.log(data);
-    // });
-    this.activatedroute.queryParams.subscribe(data => {
-      console.log(data);
-    });
+    // Depending on the route navigation (add/edit), set the title accordingly and fetch object to be edited 
+      if(this.router.url === '/book/add') {
+        this.title ='Add Book';
+      } else {
+          this.title = 'Edit Book';
+          this.activatedroute.queryParams.subscribe(data => {
+            console.log(data);
+            // Get method goes here
+          });
+      }
   }
 
   addNewBook(): void {
     let book: Book = this.addBookForm.value;
-    console.log(book);
-
     this.service.addbook(book).subscribe((response: Book) => {
       console.log(response);
+      // Display message to go here
     });
     this.navigateBack();
   }
@@ -56,7 +55,7 @@ export class BookAddEditComponent {
         bookName: '',
         author: '',
         genre: '',
-        price:0.00
+        price: 0.00
       })
     }
 
