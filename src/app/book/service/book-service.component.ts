@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpExceptionHandler } from "src/app/service-config/HttpExceptionHandler";
+import { HttpExceptionHandler } from "src/app/service-config/http-exception-service";
 import { Book } from './book-object';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class BookServiceComponent {
     private httpExc: HttpExceptionHandler
     ) {}
   
-  BASE_URL: string = "http://192.168.18.7:8080/book"; // Change accordingly to where the clent is running from 
+  BASE_URL: string = "http://192.168.18.11:8080/book"; // Change accordingly to where the clent is running from 
 
   httpOptions = {
     httpHeaders: new HttpHeaders({

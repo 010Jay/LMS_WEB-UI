@@ -3,6 +3,9 @@ import { BookServiceComponent } from './service/book-service.component';
 import { Book } from './service/book-object';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { NotificationService } from '../service-config/notification-service';
+import { catchError } from 'rxjs';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-book',
@@ -20,12 +23,21 @@ export class BookComponent implements OnInit {
   constructor(
     private service: BookServiceComponent, 
     private router: Router,
+    private notification: NotificationService
     ) {}
   
   ngOnInit() {
     // Populate table when webpage loads
       this.toggleButton = false;
-      this.service.getMany().subscribe((response: Book[]) => {
+      this.service.getMany()
+      .pipe(
+        catchError(error => {
+          if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '');
+          return error;
+        })
+      )
+      .subscribe((response: Book[]) => {
         this.bookList = response;
       });
   }
@@ -58,8 +70,17 @@ export class BookComponent implements OnInit {
     }  
 
     delete(): void {
-      this.service.delete(this.bookID).subscribe((reponse: Book) => {
-        console.log(reponse);
+      this.service.delete(this.bookID)
+      .pipe(
+        catchError(error => { 
+          if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '')
+          return error; 
+        })
+      )
+      .subscribe((reponse: Book) => {
+        if(reponse != null)  
+          this.notification.openDialog('Succesfully deleted.', ''); 
       });
     }
 }

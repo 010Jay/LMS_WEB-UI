@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { BookComponent } from './book/book.component';
 import { BookServiceComponent } from './book/service/book-service.component';
-import { HttpExceptionHandler } from "./service-config/HttpExceptionHandler";
+import { HttpExceptionHandler } from "./service-config/http-exception-service";
 import { HomeComponent } from './home/home.component';
 import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.component';
 
@@ -17,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; //Import for material form
 import { MatInputModule } from '@angular/material/input'; //Import for material form
-import {MatSelectModule} from '@angular/material/select'; //select type material 
+import { MatSelectModule } from '@angular/material/select'; //Select type material 
+import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-up messages
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatSelectModule} from '@angular/material/select'; //select type material
     MatInputModule, 
     MatSelectModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [BookServiceComponent, HttpExceptionHandler],
   bootstrap: [AppComponent]

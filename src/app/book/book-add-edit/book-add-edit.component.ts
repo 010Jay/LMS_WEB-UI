@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookServiceComponent } from '../service/book-service.component';
 import { Book } from '../service/book-object';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/service-config/notification-service';
+import { catchError } from 'rxjs';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-book-add-edit',
@@ -24,6 +27,7 @@ export class BookAddEditComponent {
     private router: Router,
     private service: BookServiceComponent,
     private activatedroute: ActivatedRoute,
+    private notification: NotificationService
   ) {}
 
   ngOnInit():void {
@@ -44,14 +48,30 @@ export class BookAddEditComponent {
   save(): void {
     let book: Book = this.addBookForm.value;
     if(this.router.url === '/book/add') {
-      this.service.post(book).subscribe((response: Book) => {
-        console.log(response);
-        // Display message to go here
+      this.service.post(book)
+      .pipe(
+        catchError(error => {
+          if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '');
+          return error;
+        })
+      )
+      .subscribe((response: Book) => {
+        if(response != null)
+          this.notification.openDialog('Sucessfully added.', '');
       });
     } else {
-        this.service.put(book).subscribe((response: Book) => {
-          console.log(response);
-          // Display message to go here
+        this.service.put(book)
+        .pipe(
+          catchError(error => {
+            if(error.status != HttpStatusCode.Ok)
+              this.notification.openDialog(error.message, '');
+            return error;
+          })
+        )
+        .subscribe((response: Book) => {
+          if(response != null)
+            this.notification.openDialog('Sucessfully updated.', '');
         });
     }
     this.navigateBack();
