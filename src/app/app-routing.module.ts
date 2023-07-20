@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { BookComponent } from './book/book.component';
 import { HomeComponent } from './home/home.component';
 import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.component';
+import { UserComponent } from './user/user.component';
 
 //Array to hold route definitions
   const routes: any[] = [
@@ -17,6 +18,10 @@ import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.compone
     },
     { path: 'book/edit/:id', 
       component: BookAddEditComponent
+    },
+    {
+      path: 'user',
+      component: UserComponent
     },
     { path: 'home', 
       component: HomeComponent

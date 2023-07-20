@@ -4,10 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { BookComponent } from './book/book.component';
-import { BookServiceComponent } from './book/service/book-service.component';
+import { BookServiceComponent } from './book/book-service/book-service.component';
 import { HttpExceptionHandler } from "./service-config/http-exception-service";
 import { HomeComponent } from './home/home.component';
 import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.component';
+import { UserComponent } from './user/user.component';
+import { UserServiceComponent } from './user/user-service/user-service.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -18,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; //Import for material form
 import { MatInputModule } from '@angular/material/input'; //Import for material form
 import { MatSelectModule } from '@angular/material/select'; //Select type material 
-import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-up messages
+import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-up messages 
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-u
     BookComponent,
     HomeComponent,
     BookAddEditComponent,
-    BookAddEditComponent
+    BookAddEditComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-u
     BrowserAnimationsModule,
     MatSnackBarModule
   ],
-  providers: [BookServiceComponent, HttpExceptionHandler],
+  providers: [
+    BookServiceComponent, 
+    HttpExceptionHandler,
+    UserServiceComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

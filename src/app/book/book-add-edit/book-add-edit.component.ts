@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookServiceComponent } from '../service/book-service.component';
-import { Book } from '../service/book-object';
+import { BookServiceComponent } from '../book-service/book-service.component';
+import { Book } from '../book-service/book-object';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/service-config/notification-service';
 import { catchError } from 'rxjs';

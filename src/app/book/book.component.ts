@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BookServiceComponent } from './service/book-service.component';
-import { Book } from './service/book-object';
+import { BookServiceComponent } from './book-service/book-service.component';
+import { Book } from './book-service/book-object';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { NotificationService } from '../service-config/notification-service';
@@ -27,8 +27,8 @@ export class BookComponent implements OnInit {
     ) {}
   
   ngOnInit() {
+    this.toggleButton = false;
     // Populate table when webpage loads
-      this.toggleButton = false;
       this.service.getMany()
       .pipe(
         catchError(error => {
