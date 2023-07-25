@@ -1,5 +1,13 @@
 <h2><p>{{title}}</p></h2>
 
+<div class = 'add-edit-delete-buttons'>
+    <button class = "btn" mat-raised-button color = "primary" (click) = 'navigateToAddPage()'> Add </button> 
+    <button class = "btn" mat-raised-button color = "primary" [disabled] = "!toggleButton" 
+                    (click) = "navigateToEditPage()"> Edit </button>
+    <button class = "btn" mat-raised-button = "primary" [disabled] = "!toggleButton"
+                    (click) = 'delete()'> Delete </button>                
+</div>
+
 <table mat-table [dataSource] = "userList" class = "mat-elevation-z8 table">
     <!-- Checkbox Column -->
         <ng-container matColumnDef="select">

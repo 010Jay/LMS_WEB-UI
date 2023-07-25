@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { User } from './user-service/user-object';
+import { User } from './user-service/user-object.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserServiceComponent } from './user-service/user-service.component';
 import { Router } from '@angular/router';
-import { NotificationService } from '../service-config/notification-service';
+import { NotificationService } from '../service-config/notification-service.component';
 import { HttpStatusCode } from '@angular/common/http';
 import { catchError } from 'rxjs';
 
@@ -41,7 +41,28 @@ export class UserComponent {
       })
   }
 
-  onSelect(row: any) {
-    let roow = row;
+// Get id of the object/row selected in the table
+  onSelect(row: any): void{
+    if(this.selection.isSelected(row)) {
+      this.userID = row.userID;
+      this.toggleButton = true;
+    } else {
+        this.toggleButton = false;
+        this.userID = -1;
+    }  
+  }
+  
+//Display add template
+  navigateToAddPage =  () => {
+    this.router.navigateByUrl('/user/add');
+  }
+
+//Display edit template
+  navigateToEditPage =  () => {
+    this.router.navigate(['/user/edit'], { queryParams: { id: this.userID } });
+  }   
+
+  delete(){
+    
   }
 }

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookServiceComponent } from '../book-service/book-service.component';
-import { Book } from '../book-service/book-object';
+import { Book } from '../book-service/book-object.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NotificationService } from 'src/app/service-config/notification-service';
+import { NotificationService } from 'src/app/service-config/notification-service.component';
 import { catchError } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
 
@@ -15,7 +15,7 @@ export class BookAddEditComponent {
 
   title: string = '';
 
-  addBookForm = new FormGroup({
+  bookForm = new FormGroup({
     bookID: new FormControl<number>(0, {nonNullable: true}),
     bookName: new FormControl('', [Validators.required]),
     author: new FormControl('', [Validators.required]),
@@ -46,7 +46,7 @@ export class BookAddEditComponent {
   }
 
   save(): void {
-    let book: Book = this.addBookForm.value;
+    let book: Book = this.bookForm.value;
     if(this.router.url === '/book/add') {
       this.service.post(book)
       .pipe(
@@ -79,7 +79,7 @@ export class BookAddEditComponent {
 
   // Reset form to blank/default values
     reset():void {
-      this.addBookForm.setValue({
+      this.bookForm.setValue({
         bookID: 0,
         bookName: '',
         author: '',
@@ -90,7 +90,7 @@ export class BookAddEditComponent {
 
   // Fill form with data object to edit
     fillForm(book: Book): void {
-      this.addBookForm.setValue({
+      this.bookForm.setValue({
         bookID: book.bookID!,
         bookName: book.bookName!,
         author: book.author!,

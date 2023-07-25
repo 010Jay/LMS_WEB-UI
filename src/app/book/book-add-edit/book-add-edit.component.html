@@ -1,36 +1,42 @@
 <h2><p>{{title}}</p></h2>
 
-<form class = "form-input" [formGroup] = "addBookForm" (ngSubmit) ="save()">
+<form class = "form-input" [formGroup] = "bookForm" (ngSubmit) ="save()">
     <!-- Buttons    -->
     <div class = form-buttons>
         <button class = "btn" mat-raised-button color = "primary" type = "submit"> Submit </button>
-        <button *ngIf = "title === 'Add Book'" class = "btn" mat-raised-button color = "primary" type = "button" (click) = "reset()"> Clear </button>
-        <button class = "btn" mat-raised-button color = "primary" type = "button" (click) = "navigateBack()"> Cancel </button>
+        <button *ngIf = "title === 'Add Book'" class = "btn" mat-raised-button color = "primary" type = "button" 
+        (click) = "reset()"> Clear </button>
+        <button class = "btn" mat-raised-button color = "primary" type = "button" (click) = "navigateBack()"> 
+            Cancel 
+        </button>
     </div>   
 
     <!-- Form data -->
-        <p>
-            <mat-form-field appearance = "outline"> 
-            <mat-label> Book Name </mat-label>
-            <input matInput type = text formControlName = "bookName"> 
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance = "outline"> 
-            <mat-label> Author </mat-label>
-            <input matInput type = text formControlName = "author">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance = "outline"> 
-            <mat-label> Genre </mat-label>
-            <input matInput type = text formControlName = "genre"> 
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance = "outline"> 
-            <mat-label> Price </mat-label>
-            <input matInput type = number formControlName = "price"> 
-            </mat-form-field>
-        </p> 
+        <br>
+        <fieldset>
+            <p>
+                <mat-form-field appearance = "outline"> 
+                <mat-label> Book Name </mat-label>
+                <input matInput type = text formControlName = "bookName"> 
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance = "outline"> 
+                <mat-label> Author </mat-label>
+                <input matInput type = text formControlName = "author">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance = "outline"> 
+                <mat-label> Genre </mat-label>
+                <input matInput type = text formControlName = "genre"> 
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance = "outline"> 
+                <mat-label> Price </mat-label>
+                <input matInput type = number formControlName = "price"> 
+                </mat-form-field>
+            </p> 
+        </fieldset>
 </form>

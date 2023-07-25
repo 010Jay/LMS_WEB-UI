@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BookServiceComponent } from './book-service/book-service.component';
-import { Book } from './book-service/book-object';
+import { Book } from './book-service/book-object.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { NotificationService } from '../service-config/notification-service';
+import { NotificationService } from '../service-config/notification-service.component';
 import { catchError } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
 
@@ -52,12 +52,6 @@ export class BookComponent implements OnInit {
         this.bookID = -1;
     }  
   }
-
-  // Uncheck a checkbox when diselecting the main checkbox
-    clearSelection() { 
-      if(this,this.selection.selected.length > 0)
-        this.selection.clear();
-    }
 
   //Display add template
     navigateToAddPage =  () => {

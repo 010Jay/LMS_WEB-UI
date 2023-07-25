@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpExceptionHandler } from "src/app/service-config/http-exception-service";
-import { Book } from './book-object';
+import { HttpExceptionHandler } from "src/app/service-config/http-exception-service.component";
+import { Book } from './book-object.component';
 
 @Injectable()
 export class BookServiceComponent {
