@@ -13,7 +13,7 @@ export class BookServiceComponent {
     private httpExc: HttpExceptionHandler
     ) {}
   
-  BASE_URL: string = 'http://192.168.18.6:8080/book'; // Change accordingly to where the clent is running from 
+  BASE_URL: string = 'http://192.168.18.17:8080/book'; // Change accordingly to where the clent is running from 
 
   get(id: number): Observable<any> {
     return this.httpClient.get(this.BASE_URL + '/read/' + id)

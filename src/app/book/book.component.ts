@@ -63,6 +63,7 @@ export class BookComponent implements OnInit {
       this.router.navigate(['/book/edit'], { queryParams: { id: this.bookID } });
     }  
 
+  // Delete the item  
     delete(): void {
       this.service.delete(this.bookID)
       .pipe(

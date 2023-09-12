@@ -4,7 +4,7 @@
     <!-- Buttons    -->
         <div class = form-buttons>
             <button class = "btn" mat-raised-button color = "primary" type = "submit"> Submit </button>
-            <button *ngIf = "title === 'Add Book'" class = "btn" mat-raised-button color = "primary" type = "button" 
+            <button *ngIf = "title === 'Add User'" class = "btn" mat-raised-button color = "primary" type = "button" 
             (click) = "reset()"> Clear </button>
             <button class = "btn" mat-raised-button color = "primary" type = "button" (click) = "navigateBack()"> 
                 Cancel 
@@ -13,7 +13,7 @@
 
     <!-- Form data -->
         <br>
-        <fieldset formGroupName="userDetails">
+        <fieldset class = 'userDetails'>
             <p>
                 <mat-form-field appearance = "outline"> 
                 <mat-label> First Name </mat-label>
@@ -40,7 +40,7 @@
             </p> 
         </fieldset> 
         <br>
-        <fieldset formGroupName="loginDetails">
+        <fieldset class = 'userLoginDetails' >
             <p>
                 <mat-form-field appearance = "outline"> 
                 <mat-label> Username </mat-label>

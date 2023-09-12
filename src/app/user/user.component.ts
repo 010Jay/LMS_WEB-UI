@@ -62,7 +62,19 @@ export class UserComponent {
     this.router.navigate(['/user/edit'], { queryParams: { id: this.userID } });
   }   
 
-  delete(){
-    
+// Delete the item 
+  delete(): void {
+    this.service.delete(this.userID)
+    .pipe(
+      catchError(error => { 
+        if(error.status != HttpStatusCode.Ok)
+          this.notification.openDialog(error.message, '')
+        return error; 
+      })
+    )
+    .subscribe((reponse: User) => {
+      if(reponse != null)  
+        this.notification.openDialog('Succesfully deleted.', ''); 
+    });
   }
 }

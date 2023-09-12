@@ -45,23 +45,11 @@ export class BookAddEditComponent {
       }
   }
 
-  save(): void {
-    let book: Book = this.bookForm.value;
-    if(this.router.url === '/book/add') {
-      this.service.post(book)
-      .pipe(
-        catchError(error => {
-          if(error.status != HttpStatusCode.Ok)
-            this.notification.openDialog(error.message, '');
-          return error;
-        })
-      )
-      .subscribe((response: Book) => {
-        if(response != null)
-          this.notification.openDialog('Sucessfully added.', '');
-      });
-    } else {
-        this.service.put(book)
+  // Save (add new item) or update existing item 
+    save(): void {
+      let book: Book = this.bookForm.value;
+      if(this.router.url === '/book/add') {
+        this.service.post(book)
         .pipe(
           catchError(error => {
             if(error.status != HttpStatusCode.Ok)
@@ -71,11 +59,24 @@ export class BookAddEditComponent {
         )
         .subscribe((response: Book) => {
           if(response != null)
-            this.notification.openDialog('Sucessfully updated.', '');
+            this.notification.openDialog('Sucessfully added.', '');
         });
+      } else {
+          this.service.put(book)
+          .pipe(
+            catchError(error => {
+              if(error.status != HttpStatusCode.Ok)
+                this.notification.openDialog(error.message, '');
+              return error;
+            })
+          )
+          .subscribe((response: Book) => {
+            if(response != null)
+              this.notification.openDialog('Sucessfully updated.', '');
+          });
+      }
+      this.navigateBack();
     }
-    this.navigateBack();
-  }
 
   // Reset form to blank/default values
     reset():void {
