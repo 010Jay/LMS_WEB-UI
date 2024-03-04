@@ -21,7 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; //Import for material form
 import { MatInputModule } from '@angular/material/input'; //Import for material form
 import { MatSelectModule } from '@angular/material/select'; //Select type material 
-import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-up messages
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { IssueServiceComponent } from './issue/issue-service/issue-service.component';
+import { IssueComponent } from './issue/issue.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-u
     BookAddEditComponent,
     BookAddEditComponent,
     UserComponent,
-    UserAddEditComponent
+    UserAddEditComponent,
+    IssueComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; //Display pop-u
   providers: [
     BookServiceComponent, 
     HttpExceptionHandler,
-    UserServiceComponent
+    UserServiceComponent,
+    IssueServiceComponent
   ],
   bootstrap: [AppComponent]
 })
