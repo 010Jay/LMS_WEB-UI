@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.component';
 import { UserComponent } from './user/user.component';
 import { UserAddEditComponent } from './user/user-add-edit/user-add-edit.component';
+import { IssueAddEditComponent } from './issue/issue-add-edit/issue-add-edit.component';
+import { IssueComponent } from './issue/issue.component';
 
 //Array to hold route definitions
   const routes: any[] = [
@@ -35,6 +37,22 @@ import { UserAddEditComponent } from './user/user-add-edit/user-add-edit.compone
     {
       path: 'user/edit/:id',
       component: UserAddEditComponent
+    },
+    {
+      path: 'issue',
+      component: IssueComponent
+    },
+    {
+      path: 'issue/add',
+      component: IssueAddEditComponent
+    },
+    {
+      path: 'issue/edit',
+      component: IssueAddEditComponent
+    },
+    {
+      path: 'issue/edit/:id',
+      component: IssueAddEditComponent
     },
     { path: 'home', 
       component: HomeComponent

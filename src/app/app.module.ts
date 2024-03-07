@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select'; //Select type materi
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { IssueServiceComponent } from './issue/issue-service/issue-service.component';
 import { IssueComponent } from './issue/issue.component';
+import { IssueAddEditComponent } from './issue/issue-add-edit/issue-add-edit.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { IssueComponent } from './issue/issue.component';
     BookAddEditComponent,
     UserComponent,
     UserAddEditComponent,
-    IssueComponent
+    IssueComponent,
+    IssueAddEditComponent
   ],
   imports: [
     BrowserModule,
