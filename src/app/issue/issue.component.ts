@@ -13,8 +13,21 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class IssueComponent {
   title: string = 'User List'
-  issueList: Issue[] = [];
-  tableColumns = ['select', 'issue_id', 'user_id', 'book_id', 'issue_date', 'period', 'return_date'];
+
+  //Test
+    date: Date = new Date();
+    issues: Issue[] = [{
+      issueID: 10,
+      userID: 7,
+      bookID: 9,
+      issueDate: this.date,
+      period: 10,
+      returnDate: null,
+      fine: null
+    }];
+
+  issueList: Issue[] = this.issues;
+  tableColumns = ['select', 'issue_id', 'user_id', 'book_id', 'issue_date', 'period', 'return_date', 'fine'];
   selection = new SelectionModel<Issue>(false, []);
   toggleButton!: boolean; 
   issueID: number = -1;
@@ -59,7 +72,7 @@ export class IssueComponent {
 
   //Display edit template
     navigateToEditPage =  () => {
-      this.router.navigate(['/user/edit'], { queryParams: { id: this.issueID } });
+      this.router.navigate(['/issue/edit'], { queryParams: { id: this.issueID } });
     }  
   
   // Delete the item  
