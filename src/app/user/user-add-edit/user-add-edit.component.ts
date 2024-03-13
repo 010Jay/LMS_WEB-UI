@@ -39,8 +39,8 @@ import { HttpStatusCode } from "@angular/common/http";
             } else {
                 this.title = 'Edit User';
                 this.activatedroute.queryParams.subscribe(data => {
-                    let bookID: number = parseInt(data['id']);
-                    this.service.get(bookID).subscribe((response: User) => {
+                    let userID: number = parseInt(data['id']);
+                    this.service.get(userID).subscribe((response: User) => {
                     this.fillForm(response);
                     });
                 });
