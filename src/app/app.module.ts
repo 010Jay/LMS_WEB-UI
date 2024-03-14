@@ -11,6 +11,9 @@ import { BookAddEditComponent } from './book/book-add-edit/book-add-edit.compone
 import { UserComponent } from './user/user.component';
 import { UserServiceComponent } from './user/user-service/user-service.component';
 import { UserAddEditComponent } from './user/user-add-edit/user-add-edit.component';
+import { IssueServiceComponent } from './issue/issue-service/issue-service.component';
+import { IssueComponent } from './issue/issue.component';
+import { IssueAddEditComponent } from './issue/issue-add-edit/issue-add-edit.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -22,9 +25,8 @@ import {MatFormFieldModule} from '@angular/material/form-field'; //Import for ma
 import { MatInputModule } from '@angular/material/input'; //Import for material form
 import { MatSelectModule } from '@angular/material/select'; //Select type material 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { IssueServiceComponent } from './issue/issue-service/issue-service.component';
-import { IssueComponent } from './issue/issue.component';
-import { IssueAddEditComponent } from './issue/issue-add-edit/issue-add-edit.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { IssueAddEditComponent } from './issue/issue-add-edit/issue-add-edit.com
     MatSelectModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     BookServiceComponent, 
