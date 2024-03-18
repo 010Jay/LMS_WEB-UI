@@ -15,36 +15,33 @@
             <br>
             <fieldset class = 'issueDetails'>
                 <p>
-                    <label> User ID </label>
-                    <br>
-                    <select class = 'select' formControlName = 'userID' [(ngModel)] = "userSelected">
-                        <option *ngFor="let user of userList" [ngValue]="user.userID">
-                          {{user.firstName}}
-                        </option>    
-                    </select>
+                    <mat-form-field apperance = 'outline'>
+                    <mat-label> User ID </mat-label>
+                    <mat-select  [(ngModel)] = "userSelected" formControlName = 'userID'>
+                        <mat-option *ngFor="let user of userList" [value]="user.userID">
+                            {{user.firstName}} {{user.lastName}}
+                        </mat-option> 
+                    </mat-select>
+                    </mat-form-field>
                 </p>
                 <p>
-                    <label> book ID </label>
-                    <br>
-                    <select class = 'select' formControlName = 'bookID' [(ngModel)] = "bookSelected">
-                        <option *ngFor="let book of bookList" [ngValue]="book.bookID">
+                    <mat-form-field apperance = 'outline'>
+                    <mat-label> book ID </mat-label>
+                    <mat-select [(ngModel)] = "bookSelected" formControlName = 'bookID'>
+                        <mat-option *ngFor="let book of bookList" [value]="book.bookID">
                           {{book.bookName}}
-                        </option>    
-                    </select>
+                        </mat-option>    
+                    </mat-select>
+                    </mat-form-field>
                 </p>
                 <p>
-                    <mat-form-field class = 'calender'>
+                    <mat-form-field>
                         <mat-label>Issue Date</mat-label>
-                        <input matInput [matDatepicker]="datepicker" >
+                        <input matInput [matDatepicker]="issueDate" formControlName = 'issueDate'>
                         <mat-hint>MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                        <mat-datepicker #datepicker>
-                          <mat-datepicker-actions>
-                            <button mat-button matDatepickerCancel>Cancel</button>
-                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                          </mat-datepicker-actions>
-                        </mat-datepicker>
-                      </mat-form-field> 
+                        <mat-datepicker-toggle matIconSuffix [for]="issueDate"></mat-datepicker-toggle>
+                        <mat-datepicker #issueDate></mat-datepicker>
+                    </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance = "outline"> 
@@ -56,9 +53,13 @@
             <br>
             <fieldset class = 'calculateFine'>
                 <p>
-                    <label> Return Date </label>
-                    <br>
-                    <input class = 'date' type = Date formControlName = "returnDate"> 
+                    <mat-form-field>
+                        <mat-label>Return Date</mat-label>
+                        <input matInput [matDatepicker]="returnDate" formControlName = 'returnDate'>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="returnDate"></mat-datepicker-toggle>
+                        <mat-datepicker #returnDate></mat-datepicker>
+                    </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance = "outline"> 
@@ -67,4 +68,4 @@
                     </mat-form-field>
                 </p>
             </fieldset>
-</form>    
+</form>

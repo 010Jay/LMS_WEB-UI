@@ -100,6 +100,17 @@ export class IssueAddEditComponent {
   // Save (add new item) or update existing item 
     save(): void {
       let issue: Issue = this.issueForm.value;
+
+      // console.log(
+      //   //issue.issueID,
+      //   issue.userID,
+      //   issue.bookID,
+      //   issue.issueDate,
+      //   issue.period,
+      //   issue.returnDate,
+      //   issue.fine
+      // );
+      
       if(this.router.url === '/issue/add') {
       this.service.post(issue)
       .pipe(
