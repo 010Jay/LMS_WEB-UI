@@ -23,14 +23,15 @@ export class IssueAddEditComponent {
   calcaulateFine: boolean = false;
   displayMessage: string = '';
   buttonName: string = 'Calculate Fine';
+  date: Date = new Date();
 
   issueForm = new FormGroup({
     issueID: new FormControl<number>(0, {nonNullable: true}),
     userID: new FormControl<number>(0, {nonNullable: true}),
     bookID: new FormControl<number>(0, {nonNullable: true}),
-    issueDate: new FormControl<any>(null),
+    issueDate: new FormControl<any>(this.date),
     period: new FormControl<number>(0, {nonNullable: true}),
-    returnDate: new FormControl<any>(null),
+    returnDate: new FormControl<any>(this.date),
     fine: new FormControl<number>({value: 0.00,  disabled: true})
   })
 
@@ -133,9 +134,9 @@ export class IssueAddEditComponent {
       issueID: 0,
       userID: 0,
       bookID: 0,
-      issueDate: null,
+      issueDate: this.date,
       period: 0,
-      returnDate: null,
+      returnDate: this.date,
       fine: 0.00
     })
   }
