@@ -17,7 +17,7 @@
                 <p>
                     <mat-form-field apperance = 'outline'>
                     <mat-label> User ID </mat-label>
-                    <mat-select  [(ngModel)] = "userSelected" formControlName = 'userID'>
+                    <mat-select formControlName = 'userID'>
                         <mat-option *ngFor="let user of userList" [value]="user.userID">
                             {{user.firstName}} {{user.lastName}}
                         </mat-option> 
@@ -27,7 +27,7 @@
                 <p>
                     <mat-form-field apperance = 'outline'>
                     <mat-label> book ID </mat-label>
-                    <mat-select [(ngModel)] = "bookSelected" formControlName = 'bookID'>
+                    <mat-select formControlName = 'bookID'>
                         <mat-option *ngFor="let book of bookList" [value]="book.bookID">
                           {{book.bookName}}
                         </mat-option>    
@@ -51,21 +51,28 @@
                 </p>
             </fieldset>
             <br>
-            <fieldset class = 'calculateFine'>
-                <p>
-                    <mat-form-field>
-                        <mat-label>Return Date</mat-label>
-                        <input matInput [matDatepicker]="returnDate" formControlName = 'returnDate'>
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle matIconSuffix [for]="returnDate"></mat-datepicker-toggle>
-                        <mat-datepicker #returnDate></mat-datepicker>
-                    </mat-form-field>
-                </p>
-                <p>
-                    <mat-form-field appearance = "outline"> 
-                    <mat-label> Fine </mat-label>
-                    <input matInput type = number formControlName = "fine"> 
-                    </mat-form-field>
-                </p>
-            </fieldset>
+            <div *ngIf="showSecondForm">
+                <fieldset class = 'calculateFine'>
+                    <p>
+                        <mat-form-field>
+                            <mat-label>Return Date</mat-label>
+                            <input matInput [matDatepicker]="returnDate" formControlName = 'returnDate'>
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="returnDate"></mat-datepicker-toggle>
+                            <mat-datepicker #returnDate></mat-datepicker>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance = "outline"> 
+                        <mat-label> Fine </mat-label>
+                        <input matInput type = number formControlName = "fine"> 
+                        </mat-form-field>
+                        <br>
+                        {{displayMessage}}
+                        <button class = "btn" mat-raised-button color = "primary" type = "button" (click) = "sendCalculateFineRequest()">
+                             {{buttonName}} 
+                        </button>
+                    </p>
+                </fieldset>
+            </div>    
 </form>

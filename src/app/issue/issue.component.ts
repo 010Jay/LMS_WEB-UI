@@ -12,21 +12,9 @@ import { HttpStatusCode } from '@angular/common/http';
   templateUrl: './issue.component.html',
 })
 export class IssueComponent {
-  title: string = 'User List'
+  title: string = 'Issue List'
 
-  //Test
-    date: Date = new Date();
-    issues: Issue[] = [{
-      issueID: 10,
-      userID: 7,
-      bookID: 9,
-      issueDate: this.date,
-      period: 10,
-      returnDate: null,
-      fine: null
-    }];
-
-  issueList: Issue[] = this.issues;
+  issueList: Issue[] = [];
   tableColumns = ['select', 'issue_id', 'user_id', 'book_id', 'issue_date', 'period', 'return_date', 'fine'];
   selection = new SelectionModel<Issue>(false, []);
   toggleButton!: boolean; 

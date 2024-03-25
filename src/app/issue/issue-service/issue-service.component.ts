@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Injectable } from '@angular/core';
 import { Observable, ObservedValueOf, catchError } from 'rxjs';
 import { HttpExceptionHandler } from 'src/app/service-config/http-exception-service.component';
@@ -35,8 +35,10 @@ export class IssueServiceComponent {
     );
   }
 
-  put(issue: Issue): Observable<any> {
-    return this.httpClient.put(this.Base_URL + '/update', issue)
+  put(issue: Issue, calculateFine: boolean): Observable<any> {
+    let params = new HttpParams().set('calculateFine', calculateFine);
+    
+    return this.httpClient.put(this.Base_URL + '/update', issue, { params: params })
     .pipe(
       catchError(this.httpExc.handleError)
     );

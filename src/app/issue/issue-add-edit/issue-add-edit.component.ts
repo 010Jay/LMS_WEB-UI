@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationService } from 'src/app/service-config/notification-service.component';
 import { IssueServiceComponent } from '../issue-service/issue-service.component';
@@ -8,6 +8,8 @@ import { HttpStatusCode } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { User } from 'src/app/user/user-service/user-object.component';
 import { Book } from 'src/app/book/book-service/book-object.component';
+import { UserServiceComponent } from 'src/app/user/user-service/user-service.component';
+import { BookServiceComponent } from 'src/app/book/book-service/book-service.component';
 
 @Component({
   selector: 'app-issue-add-edit',
@@ -15,69 +17,28 @@ import { Book } from 'src/app/book/book-service/book-object.component';
 })
 export class IssueAddEditComponent {
   title: string = '';
-
-  //Test data
-    users: User[] = [
-      {
-        userID: 7,
-        firstName: 'Jon',
-        lastName: 'Snow',
-        contactNumber: '0684560213',
-        emailAddress: 'jonsnow@gmail.com',
-
-        username: 'jon010',
-        password: 'Password01',
-        admin: true
-      },
-      {
-        userID: 10,
-        firstName: 'Stephan',
-        lastName: 'Salvatore',
-        contactNumber: '0785200123',
-        emailAddress: 'stephansalavtore@gmail.com',
-
-        username: 'Stephan010',
-        password: 'Password02',
-        admin: false
-      }
-    ]
-
-    books: Book[] = [
-      {
-        bookID: 9,
-        bookName: 'Lord of The Rings',
-        author: 'Unknown',
-        genre: 'Supernatural',
-        price: 899.99
-      },
-      {
-        bookID: 11,
-        bookName: 'Animal Farm',
-        author: 'Unknown',
-        genre: 'Unknown',
-        price: 499.99
-      }
-    ]
-
-  userList: User[] = this.users;
-  bookList: Book[] = this.books;
-  userSelected: any;
-  bookSelected: any;
-  date: Date = new Date();
+  showSecondForm: boolean = false;
+  userList: User[] = [];
+  bookList: Book[] = [];
+  calcaulateFine: boolean = false;
+  displayMessage: string = '';
+  buttonName: string = 'Calculate Fine';
 
   issueForm = new FormGroup({
     issueID: new FormControl<number>(0, {nonNullable: true}),
     userID: new FormControl<number>(0, {nonNullable: true}),
     bookID: new FormControl<number>(0, {nonNullable: true}),
-    issueDate: new FormControl<Date>(this.date),
+    issueDate: new FormControl<any>(null),
     period: new FormControl<number>(0, {nonNullable: true}),
-    returnDate: new FormControl<Date>(this.date),
-    fine: new FormControl<number>(0.00, {nonNullable: false})
+    returnDate: new FormControl<any>(null),
+    fine: new FormControl<number>({value: 0.00,  disabled: true})
   })
 
   constructor(
     private router: Router,
     private service: IssueServiceComponent,
+    private userService: UserServiceComponent,
+    private bookService: BookServiceComponent,
     private activatedroute: ActivatedRoute,
     private notification: NotificationService
   ){}
@@ -86,30 +47,55 @@ export class IssueAddEditComponent {
     // Depending on the route navigation (add/edit), set the title accordingly and fetch object to be edited 
       if(this.router.url === '/issue/add') {
         this.title ='Add Issue';
+        this.showSecondForm = false;
       } else {
         this.title = 'Edit Issue';
+        this.showSecondForm = true;
         this.activatedroute.queryParams.subscribe(data => {
           let issueID: number = parseInt(data['id']);
-          this.service.get(issueID).subscribe((response: Issue) => {
+          this.service.get(issueID)
+          .pipe(
+              catchError( error => {
+                if(error.status != HttpStatusCode.Ok)
+                  this.notification.openDialog(error.message, '');
+                return error;
+              }
+            ))
+          .subscribe((response: Issue) => {
             this.fillForm(response);
           });
         });
       }
+
+    // Get lists of users and books for the drop down lists
+      this.userService.getMany()
+      .pipe(
+        catchError( error => {
+          if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '');
+          return error;
+        })
+      )
+      .subscribe((response: User[]) => {
+        this.userList = response;
+      })  
+      
+      this.bookService.getMany()
+      .pipe(
+        catchError( error => {
+          if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '');
+          return error;
+        })
+      )
+      .subscribe((response: Book[]) => {
+        this.bookList = response;
+      })  
   }
 
   // Save (add new item) or update existing item 
     save(): void {
       let issue: Issue = this.issueForm.value;
-
-      // console.log(
-      //   //issue.issueID,
-      //   issue.userID,
-      //   issue.bookID,
-      //   issue.issueDate,
-      //   issue.period,
-      //   issue.returnDate,
-      //   issue.fine
-      // );
       
       if(this.router.url === '/issue/add') {
       this.service.post(issue)
@@ -125,7 +111,7 @@ export class IssueAddEditComponent {
           this.notification.openDialog('Sucessfully added.', '');
       });
       } else {
-          this.service.put(issue)
+          this.service.put(issue, this.calcaulateFine)
           .pipe(
           catchError(error => {
               if(error.status != HttpStatusCode.Ok)
@@ -147,9 +133,9 @@ export class IssueAddEditComponent {
       issueID: 0,
       userID: 0,
       bookID: 0,
-      issueDate: this.date,
+      issueDate: null,
       period: 0,
-      returnDate: this.date,
+      returnDate: null,
       fine: 0.00
     })
   }
@@ -165,7 +151,18 @@ export class IssueAddEditComponent {
         returnDate: issue.returnDate!,
         fine: issue.fine!
       })
-    }  
+    }
+
+    sendCalculateFineRequest(): void {
+      this.calcaulateFine = !this.calcaulateFine;
+      if(this.calcaulateFine) {
+        this.displayMessage = 'Fine will be calculated!';
+        this.buttonName = 'Cancel';
+      } else {
+        this.displayMessage = '';
+        this.buttonName = 'Calculate Fine';
+      }
+    }
 
   // Navigate back to issue list page  
     navigateBack():void {
