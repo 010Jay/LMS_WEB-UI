@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, ObservedValueOf, catchError } from 'rxjs';
 import { HttpExceptionHandler } from 'src/app/service-config/http-exception-service.component';
-import { IssueComponent } from '../issue.component';
 import { Issue } from './issue-object.component';
+import { GenericURL } from 'src/app/service-config/generic-url-object';
 
 @Injectable()
 export class IssueServiceComponent {
@@ -12,7 +12,8 @@ export class IssueServiceComponent {
     private httpExc: HttpExceptionHandler
   ){}
 
-  Base_URL: string = 'http://192.168.18.17:8080/issue';
+  endpoint: string = GenericURL.generic_URL;
+  Base_URL: string = this.endpoint + '/issue';
 
   get(id: number): Observable<any> {
     return this.httpClient.get(this.Base_URL + '/read/' + id)

@@ -3,6 +3,7 @@ import { Component, Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { HttpExceptionHandler } from 'src/app/service-config/http-exception-service.component';
 import { User } from './user-object.component';
+import { GenericURL } from 'src/app/service-config/generic-url-object';
 
 @Injectable()
 export class UserServiceComponent {
@@ -12,7 +13,8 @@ export class UserServiceComponent {
     private httpExc: HttpExceptionHandler
   ) {}
 
-  Base_URL: string = 'http://192.168.18.17:8080/user';
+  endpoint: string = GenericURL.generic_URL;
+  Base_URL: string = this.endpoint + '/user';
 
   get(id: number): Observable<any> {
     return this.httpClient.get(this.Base_URL + '/read/' + id)
