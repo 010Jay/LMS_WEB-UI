@@ -39,7 +39,7 @@ export class IssueServiceComponent {
   put(issue: Issue, calculateFine: boolean): Observable<any> {
     let params = new HttpParams().set('calculateFine', calculateFine);
     
-    return this.httpClient.put(this.Base_URL + '/update', issue, { params: params })
+    return this.httpClient.post(this.Base_URL + '/update', issue, { params: params })
     .pipe(
       catchError(this.httpExc.handleError)
     );
