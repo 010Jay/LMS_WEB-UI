@@ -2,37 +2,37 @@
 
 /* Navigation */
   /* Navigation position */
-  .navigation {
-      height: 100%;
-      width: 160px;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      padding-top: 16px;
-    }
+    .navigation {
+        height: 100%;
+        width: 160px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 16px;
+      }
 
     /* Navigation links */
-    .navigation a {
-      padding: 6px 8px 6px 16px;
-      text-decoration: none;
-      font-size: 20px;
-      color: #818181;
-      display: block;
-    }
+      .navigation a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+      }
 
     /* Navigation mouse-over */
-  .navigation a:hover {
-      color: #f1f1f1;
-    }
+      .navigation a:hover {
+          color: #f1f1f1;
+      }
 
     /* Main content */
-    .main {
-      margin-left: 160px; /* Same as the width of the sidenav */
-      padding: 0px 10px;
-    }
+      .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        padding: 0px 10px;
+      }
   
   /* Tables */
     .mat-mdc-row .mat-mdc-cell {
@@ -56,9 +56,4 @@
 
     .form-buttons {
       text-align: right;
-    }
-
-    .form-input mat-form-field {
-      height: 50px;
-      font-size: 12pt;
     }
