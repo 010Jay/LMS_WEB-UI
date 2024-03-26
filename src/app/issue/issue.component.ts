@@ -74,7 +74,7 @@ export class IssueComponent {
         })
       )
       .subscribe((response: Issue) => {
-        if(response == null)
+        if(response != null)
           this.notification.openDialog('Succesfully deleted.', '');
       });
     };  
