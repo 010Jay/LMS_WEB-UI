@@ -16,12 +16,12 @@ import { HttpStatusCode } from "@angular/common/http";
 
     userForm = new FormGroup({
         userID: new FormControl<number>(0, {nonNullable: true}),
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-        contactNumber: new FormControl('', [Validators.required]),
-        emailAddress: new FormControl('', [Validators.required]),
+        firstName: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+        lastName: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+        contactNumber: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+        emailAddress: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.email]),
         
-        username: new FormControl('', [Validators.required]),
+        username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
         password: new FormControl('', [Validators.required])
     });  
 
