@@ -18,7 +18,7 @@ export class BookAddEditComponent {
   bookForm = new FormGroup({
     bookID: new FormControl<number>(0, {nonNullable: true}),
     bookName: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-    author: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+    author: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     genre: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     price: new FormControl<number>(0.00, {nonNullable: true})
   });

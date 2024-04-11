@@ -16,42 +16,95 @@
         <fieldset class = 'userDetails'>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> First Name </mat-label>
-                <input matInput type = text formControlName = "firstName"> 
+                    <mat-label> First Name </mat-label>
+                    <input matInput type = text formControlName = "firstName"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="userFormControl.firstName.touched && userFormControl.firstName.errors?.required">
+                        First Name {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.firstName.touched && userFormControl.firstName.value.length > 10">
+                        First Name {{validationMessage.shortTextMaxLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Last Name </mat-label>
-                <input matInput type = text formControlName = "lastName">
+                    <mat-label> Last Name </mat-label>
+                    <input matInput type = text formControlName = "lastName">
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="userFormControl.lastName.touched && userFormControl.lastName.errors?.required">
+                        Last Name {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.lastName.touched && userFormControl.lastName.value.length > 10">
+                        Last Name {{validationMessage.shortTextMaxLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Contact Number </mat-label>
-                <input matInput type = text formControlName = "contactNumber"> 
+                    <mat-label> Contact Number </mat-label>
+                    <input matInput type = text formControlName = "contactNumber"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="userFormControl.contactNumber.touched && userFormControl.contactNumber.errors?.required">
+                        Contact Number {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.contactNumber.touched && userFormControl.contactNumber.value.length > 10">
+                        Contact Number {{validationMessage.contactNumberLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Email Address </mat-label>
-                <input matInput type = text formControlName = "emailAddress"> 
+                    <mat-label> Email Address </mat-label>
+                    <input matInput type = text formControlName = "emailAddress"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="userFormControl.emailAddress.touched && userFormControl.emailAddress.errors?.required">
+                        Email Address {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.emailAddress.touched && userFormControl.emailAddress.value.length > 25">
+                        Email Address {{validationMessage.longTextMaxLength}}
+                </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.emailAddress.touched && userFormControl.emailAddress.errors?.email">
+                        {{validationMessage.emailAddressValidation}}
+                </span>
             </p> 
         </fieldset> 
         <br>
         <fieldset class = 'userLoginDetails' >
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Username </mat-label>
-                <input matInput type = text formControlName = "username"> 
+                    <mat-label> Username </mat-label>
+                    <input matInput type = text formControlName = "username"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="userFormControl.username.touched && userFormControl.username.errors?.required">
+                        Username {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.username.touched && userFormControl.username.value.length < 4 || 
+                     userFormControl.username.value.length > 10">
+                        {{validationMessage.usernameLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Password </mat-label>
-                <input matInput type = password formControlName = "password"> 
+                    <mat-label> Password </mat-label>
+                    <input matInput type = password formControlName = "password"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="userFormControl.password.touched && userFormControl.password.errors?.required">
+                        Password {{validationMessage.requiredField}}
+                </span>
+                <span class="validation"
+                    *ngIf="userFormControl.password.touched && userFormControl.password.errors?.invalidPassword">
+                        {{validationMessage.passwordPattern}}
+                </span>
             </p> 
         </fieldset>
 </form>

@@ -57,3 +57,8 @@
     .form-buttons {
       text-align: right;
     }
+
+    .validation {
+      color: red;
+      font-size: 11pt;
+    }

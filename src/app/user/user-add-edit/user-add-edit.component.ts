@@ -6,6 +6,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../user-service/user-object.component";
 import { catchError } from "rxjs";
 import { HttpStatusCode } from "@angular/common/http";
+import { CustomvalidationService } from "src/app/service-config/custom-validation-service.component";
+import { ValidationMessage } from "src/app/service-config/validation-message-object";
 
 @Component({
     selector: 'app-user-add-edit',
@@ -13,23 +15,28 @@ import { HttpStatusCode } from "@angular/common/http";
   })
   export class UserAddEditComponent { 
     title: string = '';
-
+    validationMessage: ValidationMessage = new ValidationMessage;
+    readyToSubmit: boolean = false;
+    
     userForm = new FormGroup({
         userID: new FormControl<number>(0, {nonNullable: true}),
         firstName: new FormControl('', [Validators.required, Validators.maxLength(10)]),
         lastName: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-        contactNumber: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-        emailAddress: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.email]),
+        contactNumber: new FormControl('', [Validators.required, Validators.minLength(10), 
+                                       Validators.maxLength(10)]),
+        emailAddress: new FormControl('', [Validators.required, Validators.maxLength(25), Validators.email]),
         
         username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
-        password: new FormControl('', [Validators.required])
+        password: new FormControl('', Validators.compose([Validators.required, 
+                                  this.customValidation.patternValidator()]))
     });  
 
     constructor(
         private router: Router,
         private service: UserServiceComponent,
         private activatedroute: ActivatedRoute,
-        private notification: NotificationService
+        private notification: NotificationService,
+        private customValidation: CustomvalidationService
     ) {}
 
     ngOnInit(){
@@ -47,10 +54,19 @@ import { HttpStatusCode } from "@angular/common/http";
             }
     }
 
+    get userFormControl(): any {
+        return this.userForm.controls;
+    }
+
     // Save (add new item) or update existing item 
         save(): void {
             let user: User = this.userForm.value;
-            if(this.router.url === '/user/add') {
+            if(this.userForm.valid) {
+                this.readyToSubmit = true;
+                console.log(this.readyToSubmit)
+            }
+                
+            if(this.router.url === '/user/add' && this.readyToSubmit) {
             this.service.post(user)
             .pipe(
                 catchError(error => {
@@ -63,7 +79,7 @@ import { HttpStatusCode } from "@angular/common/http";
                 if(response != null)
                 this.notification.openDialog('Sucessfully added.', '');
             });
-            } else {
+            } else if(this.router.url === '/user/edit' && this.readyToSubmit) {
                 this.service.put(user)
                 .pipe(
                 catchError(error => {
@@ -75,9 +91,14 @@ import { HttpStatusCode } from "@angular/common/http";
                 .subscribe((response: User) => {
                 if(response != null)
                     this.notification.openDialog('Sucessfully updated.', '');
+                    this.readyToSubmit = false;
+                    this.navigateBack();
                 });
+            } else {
+                this.readyToSubmit = false;
+                this.notification.openDialog('', 'Please enter all the neccessary requirements!')
             }
-            this.navigateBack();
+                
         }
   
 
