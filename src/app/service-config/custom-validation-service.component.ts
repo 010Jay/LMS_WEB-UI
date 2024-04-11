@@ -17,6 +17,20 @@ export class CustomvalidationService {
         private notification: NotificationService
     ) {}
 
+    ngOnInit() {
+      this.service.getMany()
+        .pipe(
+          catchError(error => {
+            if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '');
+            return error;  
+          })
+        )
+        .subscribe((repsonse: User[]) => {
+          this.userList = repsonse;
+        })
+    }
+
     userNameValidator(userControl: AbstractControl) {
         return new Promise(resolve => {
           setTimeout(() => {
@@ -30,18 +44,6 @@ export class CustomvalidationService {
       }
     
     validateUserName(username: string) {
-        this.service.getMany()
-        .pipe(
-            catchError(error => {
-                if(error.status != HttpStatusCode.Ok)
-                this.notification.openDialog(error.message, '');
-                return error;  
-            })
-        )
-        .subscribe((repsonse: User[]) => {
-            this.userList = repsonse;
-        })
-
         for(let item of this.userList) {
             this.usernameList.push(item.username);
         }
