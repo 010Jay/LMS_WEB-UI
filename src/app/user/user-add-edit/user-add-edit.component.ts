@@ -26,7 +26,8 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
                                        Validators.maxLength(10)]),
         emailAddress: new FormControl('', [Validators.required, Validators.maxLength(25), Validators.email]),
         
-        username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+        username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10),
+                                  this.customValidation.userNameValidator.bind(this.customValidation)]),
         password: new FormControl('', Validators.compose([Validators.required, 
                                   this.customValidation.patternValidator()]))
     });  
@@ -78,6 +79,7 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
             .subscribe((response: User) => {
                 if(response != null)
                 this.notification.openDialog('Sucessfully added.', '');
+                this.navigateBack();
             });
             } else if(this.router.url === '/user/edit' && this.readyToSubmit) {
                 this.service.put(user)
@@ -91,14 +93,13 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
                 .subscribe((response: User) => {
                 if(response != null)
                     this.notification.openDialog('Sucessfully updated.', '');
-                    this.readyToSubmit = false;
                     this.navigateBack();
                 });
             } else {
-                this.readyToSubmit = false;
                 this.notification.openDialog('', 'Please enter all the neccessary requirements!')
             }
-                
+
+            this.readyToSubmit = false;    
         }
   
 
