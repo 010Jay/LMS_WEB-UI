@@ -91,6 +91,10 @@
                      userFormControl.username.value.length > 10">
                         {{validationMessage.usernameLength}}
                 </span>
+                <span class = "validation"
+                    *ngIf="userFormControl.username.touched && userFormControl.username.errors?.userNameNotAvailable">
+                        {{validationMessage.usernameTaken}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
