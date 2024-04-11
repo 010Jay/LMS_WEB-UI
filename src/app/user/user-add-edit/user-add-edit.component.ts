@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../user-service/user-object.component";
 import { catchError } from "rxjs";
 import { HttpStatusCode } from "@angular/common/http";
-import { CustomvalidationService } from "src/app/service-config/custom-validation-service.component";
+import { CustomvalidatorService } from "src/app/service-config/custom-validator-service.component";
 import { ValidationMessage } from "src/app/service-config/validation-message-object";
 
 @Component({
@@ -27,9 +27,9 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
         emailAddress: new FormControl('', [Validators.required, Validators.maxLength(25), Validators.email]),
         
         username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10),
-                                  this.customValidation.userNameValidator.bind(this.customValidation)]),
+                                  this.customValidator.userNameValidator.bind(this.customValidator)]),
         password: new FormControl('', Validators.compose([Validators.required, 
-                                  this.customValidation.patternValidator()]))
+                                  this.customValidator.patternValidator()]))
     });  
 
     constructor(
@@ -37,7 +37,7 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
         private service: UserServiceComponent,
         private activatedroute: ActivatedRoute,
         private notification: NotificationService,
-        private customValidation: CustomvalidationService
+        private customValidator: CustomvalidatorService
     ) {}
 
     ngOnInit(){

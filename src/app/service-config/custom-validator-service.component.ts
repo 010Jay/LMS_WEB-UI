@@ -7,7 +7,7 @@ import { NotificationService } from './notification-service.component';
 import { catchError } from 'rxjs';
 
 @Injectable()
-export class CustomvalidationService {
+export class CustomvalidatorService {
 
     userList: User[] = [];
     usernameList: any[] = [];

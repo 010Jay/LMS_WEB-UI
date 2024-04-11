@@ -14,7 +14,7 @@ import { UserAddEditComponent } from './user/user-add-edit/user-add-edit.compone
 import { IssueServiceComponent } from './issue/issue-service/issue-service.component';
 import { IssueComponent } from './issue/issue.component';
 import { IssueAddEditComponent } from './issue/issue-add-edit/issue-add-edit.component';
-import { CustomvalidationService } from './service-config/custom-validation-service.component';
+import { CustomvalidatorService } from './service-config/custom-validator-service.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -63,7 +63,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     HttpExceptionHandler,
     UserServiceComponent,
     IssueServiceComponent,
-    CustomvalidationService
+    CustomvalidatorService
   ],
   bootstrap: [AppComponent]
 })
