@@ -16,23 +16,31 @@
             <fieldset class = 'issueDetails'>
                 <p>
                     <mat-form-field apperance = 'outline'>
-                    <mat-label> User ID </mat-label>
-                    <mat-select formControlName = 'userID'>
-                        <mat-option *ngFor="let user of userList" [value]="user.userID">
-                            {{user.firstName}} {{user.lastName}}
-                        </mat-option> 
-                    </mat-select>
+                        <mat-label> User ID </mat-label>
+                        <mat-select formControlName = 'userID'>
+                            <mat-option *ngFor="let user of userList" [value]="user.userID">
+                                {{user.firstName}} {{user.lastName}}
+                            </mat-option> 
+                        </mat-select>
                     </mat-form-field>
+                    <span class = "validation"
+                        *ngIf="issueFormControl.userID.touched && issueFormControl.userID.value < 1">
+                            User {{validationMessage.selectList}}
+                    </span>
                 </p>
                 <p>
                     <mat-form-field apperance = 'outline'>
-                    <mat-label> book ID </mat-label>
-                    <mat-select formControlName = 'bookID'>
-                        <mat-option *ngFor="let book of bookList" [value]="book.bookID">
-                          {{book.bookName}}
-                        </mat-option>    
-                    </mat-select>
+                        <mat-label> book ID </mat-label>
+                        <mat-select formControlName = 'bookID'>
+                            <mat-option *ngFor="let book of bookList" [value]="book.bookID">
+                            {{book.bookName}}
+                            </mat-option>    
+                        </mat-select>
                     </mat-form-field>
+                    <span class = "validation"
+                        *ngIf="issueFormControl.bookID.touched && issueFormControl.bookID.value < 1">
+                            Book {{validationMessage.selectList}}
+                    </span>
                 </p>
                 <p>
                     <mat-form-field>
@@ -45,9 +53,13 @@
                 </p>
                 <p>
                     <mat-form-field appearance = "outline"> 
-                    <mat-label> Period </mat-label>
-                    <input matInput type = number formControlName = "period"> 
+                        <mat-label> Period (Days) </mat-label>
+                        <input matInput type = number formControlName = "period"> 
                     </mat-form-field>
+                    <span class = "validation"
+                        *ngIf="issueFormControl.period.touched && issueFormControl.period.value < 0">
+                            Period {{validationMessage.negativeNumbers}}
+                    </span>
                 </p>
             </fieldset>
             <br>

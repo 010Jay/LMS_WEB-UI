@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/service-config/notification-service.component';
 import { catchError } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
+import { ValidationMessage } from 'src/app/service-config/validation-message-object';
 
 @Component({
   selector: 'app-book-add-edit',
@@ -14,13 +15,15 @@ import { HttpStatusCode } from '@angular/common/http';
 export class BookAddEditComponent {
 
   title: string = '';
+  readyToSubmit: boolean = false;
+  validationMessage: ValidationMessage = new ValidationMessage();
 
   bookForm = new FormGroup({
     bookID: new FormControl<number>(0, {nonNullable: true}),
     bookName: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     author: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     genre: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-    price: new FormControl<number>(0.00, {nonNullable: true})
+    price: new FormControl<number>(0.00, [Validators.min(0)])
   });
  
   constructor(
@@ -45,10 +48,17 @@ export class BookAddEditComponent {
       }
   }
 
+  get bookFormControl(): any {
+    return this.bookForm.controls;
+  }
+
   // Save (add new item) or update existing item 
     save(): void {
       let book: Book = this.bookForm.value;
-      if(this.router.url === '/book/add') {
+      if(this.bookForm.valid) 
+        this.readyToSubmit = true;
+
+      if(this.router.url === '/book/add' && this.readyToSubmit) {
         this.service.post(book)
         .pipe(
           catchError(error => {
@@ -60,8 +70,9 @@ export class BookAddEditComponent {
         .subscribe((response: Book) => {
           if(response != null)
             this.notification.openDialog('Sucessfully added.', '');
+          this.navigateBack();
         });
-      } else {
+      } else if(this.router.url === '/book/edit' && this.readyToSubmit) {
           this.service.put(book)
           .pipe(
             catchError(error => {
@@ -73,9 +84,12 @@ export class BookAddEditComponent {
           .subscribe((response: Book) => {
             if(response != null)
               this.notification.openDialog('Sucessfully updated.', '');
+            this.navigateBack();
           });
+      } else {
+          this.notification.openDialog('', 'Please enter all the neccessary requirements!')
       }
-      this.navigateBack();
+      this.readyToSubmit = false;
     }
 
   // Reset form to blank/default values

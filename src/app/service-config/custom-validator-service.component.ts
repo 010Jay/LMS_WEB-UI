@@ -7,7 +7,7 @@ import { NotificationService } from './notification-service.component';
 import { catchError } from 'rxjs';
 
 @Injectable()
-export class CustomvalidatorService {
+export class CustomValidatorService {
 
     userList: User[] = [];
     usernameList: any[] = [];
@@ -16,6 +16,20 @@ export class CustomvalidatorService {
         private service: UserServiceComponent,
         private notification: NotificationService
     ) {}
+
+    getUsers() {
+      this.service.getMany()
+        .pipe(
+          catchError(error => {
+            if(error.status != HttpStatusCode.Ok)
+            this.notification.openDialog(error.message, '');
+            return error;  
+          })
+        )
+        .subscribe((repsonse: User[]) => {
+          this.userList = repsonse;
+        })  
+    }
 
     userNameValidator(userControl: AbstractControl) {
         return new Promise(resolve => {
@@ -30,22 +44,15 @@ export class CustomvalidatorService {
       }
     
     validateUserName(username: string) {
-      this.service.getMany()
-        .pipe(
-          catchError(error => {
-            if(error.status != HttpStatusCode.Ok)
-            this.notification.openDialog(error.message, '');
-            return error;  
-          })
-        )
-        .subscribe((repsonse: User[]) => {
-          this.userList = repsonse;
-        })  
+      if(this.userList.length == 0)
+          this.getUsers();
       
       for(let item of this.userList) {
-        this.usernameList.push(item.username);
+        if(!this.usernameList.includes(item.username))
+          this.usernameList.push(item.username);
       }
 
+      console.log(this.usernameList);
       return (this.usernameList.indexOf(username) > -1);  
     }
     

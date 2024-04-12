@@ -3,5 +3,5 @@ export interface Book {
     bookName?: string | null;
     author?: string | null;
     genre?: string | null;
-    price?: number;
+    price?: number | null;
   }

@@ -10,6 +10,7 @@ import { User } from 'src/app/user/user-service/user-object.component';
 import { Book } from 'src/app/book/book-service/book-object.component';
 import { UserServiceComponent } from 'src/app/user/user-service/user-service.component';
 import { BookServiceComponent } from 'src/app/book/book-service/book-service.component';
+import { ValidationMessage } from 'src/app/service-config/validation-message-object';
 
 @Component({
   selector: 'app-issue-add-edit',
@@ -24,13 +25,15 @@ export class IssueAddEditComponent {
   displayMessage: string = '';
   buttonName: string = 'Calculate Fine';
   date: Date = new Date();
+  readyToSubmit: boolean = false;
+  validationMessage: ValidationMessage = new ValidationMessage();
 
   issueForm = new FormGroup({
     issueID: new FormControl<number>(0, {nonNullable: true}),
-    userID: new FormControl<number>(0, {nonNullable: true}),
-    bookID: new FormControl<number>(0, {nonNullable: true}),
+    userID: new FormControl<number>(0, [Validators.min(1)]),
+    bookID: new FormControl<number>(0, [Validators.min(1)]),
     issueDate: new FormControl<any>(this.date),
-    period: new FormControl<number>(0, {nonNullable: true}),
+    period: new FormControl<number>(0, [Validators.min(0)]),
     returnDate: new FormControl<any>(this.date),
     fine: new FormControl<number>({value: 0.00,  disabled: true})
   })
@@ -94,11 +97,17 @@ export class IssueAddEditComponent {
       })  
   }
 
+  get issueFormControl(): any {
+    return this.issueForm.controls;
+  }
+
   // Save (add new item) or update existing item 
     save(): void {
       let issue: Issue = this.issueForm.value;
+      if(this.issueForm.valid) 
+        this.readyToSubmit = true;
       
-      if(this.router.url === '/issue/add') {
+      if(this.router.url === '/issue/add' && this.readyToSubmit) {
       this.service.post(issue)
       .pipe(
           catchError(error => {
@@ -108,10 +117,11 @@ export class IssueAddEditComponent {
           })
       )
       .subscribe((response: User) => {
-          if(response != null)
+        if(response != null)
           this.notification.openDialog('Sucessfully added.', '');
+        this.navigateBack();
       });
-      } else {
+      } else if(this.router.url === '/issue/edit' && this.readyToSubmit) {
           this.service.put(issue, this.calcaulateFine)
           .pipe(
           catchError(error => {
@@ -121,11 +131,14 @@ export class IssueAddEditComponent {
           })
           )
           .subscribe((response: User) => {
-          if(response != null)
+            if(response != null)
               this.notification.openDialog('Sucessfully updated.', '');
+            this.navigateBack();
           });
-      }
-      this.navigateBack();
+      } else {
+          this.notification.openDialog('', 'Please enter all the neccessary requirements!')
+      }    
+      this.readyToSubmit = false;
 }
 
   // Reset form to blank/default values

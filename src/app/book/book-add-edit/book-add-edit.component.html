@@ -16,27 +16,55 @@
         <fieldset>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Book Name </mat-label>
-                <input matInput type = text formControlName = "bookName"> 
+                    <mat-label> Book Name </mat-label>
+                    <input matInput type = text formControlName = "bookName"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="bookFormControl.bookName.touched && bookFormControl.bookName.errors?.required">
+                        Book Name {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="bookFormControl.bookName.touched && bookFormControl.bookName.value.length > 25">
+                        Book Name  {{validationMessage.longTextMaxLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Author </mat-label>
-                <input matInput type = text formControlName = "author">
+                    <mat-label> Author </mat-label>
+                    <input matInput type = text formControlName = "author">
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="bookFormControl.author.touched && bookFormControl.author.errors?.required">
+                        Author {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="bookFormControl.author.touched && bookFormControl.author.value.length > 25">
+                        Author {{validationMessage.longTextMaxLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Genre </mat-label>
-                <input matInput type = text formControlName = "genre"> 
+                    <mat-label> Genre </mat-label>
+                    <input matInput type = text formControlName = "genre"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="bookFormControl.genre.touched && bookFormControl.genre.errors?.required">
+                        Genre {{validationMessage.requiredField}}
+                </span>
+                <span class = "validation"
+                    *ngIf="bookFormControl.genre.touched && bookFormControl.genre.value.length > 25">
+                        Genre {{validationMessage.longTextMaxLength}}
+                </span>
             </p>
             <p>
                 <mat-form-field appearance = "outline"> 
-                <mat-label> Price </mat-label>
-                <input matInput type = number formControlName = "price"> 
+                    <mat-label> Price (ZAR) </mat-label>
+                    <input matInput type = number formControlName = "price"> 
                 </mat-form-field>
+                <span class = "validation"
+                    *ngIf="bookFormControl.price.touched && bookFormControl.price.value < 0">
+                        Price {{validationMessage.negativeNumbers}}
+                </span>
             </p> 
         </fieldset>
 </form>

@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "../user-service/user-object.component";
 import { catchError } from "rxjs";
 import { HttpStatusCode } from "@angular/common/http";
-import { CustomvalidatorService } from "src/app/service-config/custom-validator-service.component";
+import { CustomValidatorService } from "src/app/service-config/custom-validator-service.component";
 import { ValidationMessage } from "src/app/service-config/validation-message-object";
 
 @Component({
@@ -15,8 +15,8 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
   })
   export class UserAddEditComponent { 
     title: string = '';
-    validationMessage: ValidationMessage = new ValidationMessage;
     readyToSubmit: boolean = false;
+    validationMessage: ValidationMessage = new ValidationMessage();
     
     userForm = new FormGroup({
         userID: new FormControl<number>(0, {nonNullable: true}),
@@ -37,7 +37,7 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
         private service: UserServiceComponent,
         private activatedroute: ActivatedRoute,
         private notification: NotificationService,
-        private customValidator: CustomvalidatorService
+        private customValidator: CustomValidatorService
     ) {}
 
     ngOnInit(){
@@ -62,10 +62,8 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
     // Save (add new item) or update existing item 
         save(): void {
             let user: User = this.userForm.value;
-            if(this.userForm.valid) {
+            if(this.userForm.valid) 
                 this.readyToSubmit = true;
-                console.log(this.readyToSubmit)
-            }
                 
             if(this.router.url === '/user/add' && this.readyToSubmit) {
             this.service.post(user)
@@ -78,7 +76,7 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
             )
             .subscribe((response: User) => {
                 if(response != null)
-                this.notification.openDialog('Sucessfully added.', '');
+                    this.notification.openDialog('Sucessfully added.', '');
                 this.navigateBack();
             });
             } else if(this.router.url === '/user/edit' && this.readyToSubmit) {
@@ -91,14 +89,13 @@ import { ValidationMessage } from "src/app/service-config/validation-message-obj
                 })
                 )
                 .subscribe((response: User) => {
-                if(response != null)
-                    this.notification.openDialog('Sucessfully updated.', '');
+                    if(response != null)
+                        this.notification.openDialog('Sucessfully updated.', '');
                     this.navigateBack();
                 });
             } else {
                 this.notification.openDialog('', 'Please enter all the neccessary requirements!')
             }
-
             this.readyToSubmit = false;    
         }
   

@@ -7,5 +7,7 @@ export class ValidationMessage {
     passwordPattern: string = "Password should have minimum 8 characters, at least 1 uppercase letter," + 
                               " 1 lowercase letter and 1 number!";
     contactNumberLength: string = "should not be more than 10 digits long!";
-    emailAddressValidation: string = "Please enter a valid email!";                          
+    emailAddressValidation: string = "Please enter a valid email!";
+    negativeNumbers: string = "can't be negative!"; 
+    selectList: string = "needs to be selected!"                         
 }
